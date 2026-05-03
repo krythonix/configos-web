@@ -26,7 +26,6 @@ export default function HomePage() {
             <a href="#how-it-works" className="hover:text-gray-900 transition-colors">How it works</a>
             <a href="#features" className="hover:text-gray-900 transition-colors">Features</a>
             <a href="#pricing" className="hover:text-gray-900 transition-colors">Pricing</a>
-            <Link href="/docs" className="hover:text-gray-900 transition-colors">Docs</Link>
           </div>
           <div className="flex items-center gap-3">
             <Link href="/login" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
@@ -66,12 +65,12 @@ export default function HomePage() {
             >
               Start for free
             </Link>
-            <Link
-              href="/docs"
+            <a
+              href="#how-it-works"
               className="border border-gray-200 text-gray-700 font-semibold px-8 py-3.5 rounded-xl hover:bg-gray-50 transition-colors text-sm"
             >
-              View docs →
-            </Link>
+              See how it works →
+            </a>
           </div>
           <p className="text-xs text-gray-400 mt-4">Self-hosted. No credit card required.</p>
         </div>
@@ -356,12 +355,12 @@ export default function HomePage() {
             >
               Start for free
             </Link>
-            <Link
-              href="/docs"
+            <a
+              href="https://zool.in/contact"
               className="border border-gray-200 text-gray-700 font-semibold px-8 py-3.5 rounded-xl hover:bg-gray-50 transition-colors text-sm"
             >
-              Read the docs
-            </Link>
+              Contact us
+            </a>
           </div>
         </div>
       </section>
@@ -371,7 +370,6 @@ export default function HomePage() {
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
           <Logo />
           <div className="flex items-center gap-6 text-sm text-gray-400">
-            <Link href="/docs" className="hover:text-gray-600">Docs</Link>
             <a href="https://zool.in/contact" className="hover:text-gray-600">Contact</a>
           </div>
           <p className="text-sm text-gray-400">© 2026 Config OS</p>

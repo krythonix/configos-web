@@ -329,7 +329,7 @@ export default function HomePage() {
                   ))}
                 </ul>
                 <a
-                  href="mailto:vikas@configos.dev"
+                  href="https://zool.in/contact"
                   className={`block text-center py-3 rounded-xl font-semibold text-sm transition-colors ${
                     plan.highlight
                       ? "bg-white text-indigo-600 hover:bg-indigo-50"
@@ -372,8 +372,7 @@ export default function HomePage() {
           <Logo />
           <div className="flex items-center gap-6 text-sm text-gray-400">
             <Link href="/docs" className="hover:text-gray-600">Docs</Link>
-            <a href="https://github.com/vikaszool/configos" className="hover:text-gray-600">GitHub</a>
-            <a href="mailto:vikas@configos.dev" className="hover:text-gray-600">Contact</a>
+            <a href="https://zool.in/contact" className="hover:text-gray-600">Contact</a>
           </div>
           <p className="text-sm text-gray-400">© 2026 Config OS</p>
         </div>

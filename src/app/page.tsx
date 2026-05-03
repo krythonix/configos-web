@@ -154,7 +154,7 @@ export default function HomePage() {
               {
                 step: "01",
                 title: "Deploy with Docker",
-                desc: "Run one command on your server. Config OS installs with Postgres included — no external dependencies.",
+                desc: "Run one command on your server. Choose PostgreSQL or MySQL — Config OS bundles the database, no external setup needed.",
                 code: "docker compose up -d",
               },
               {
@@ -235,7 +235,7 @@ export default function HomePage() {
               {
                 icon: "🐳",
                 title: "Docker native",
-                desc: "Ships as a Docker image. Fits into any existing infrastructure in minutes.",
+                desc: "Ships as a Docker image with PostgreSQL and MySQL support. Fits into any existing infrastructure in minutes.",
               },
             ].map((f) => (
               <div key={f.title} className="border border-gray-100 rounded-xl p-6 hover:border-indigo-100 hover:shadow-sm transition-all">

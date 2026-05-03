@@ -143,6 +143,16 @@ docker compose up -d`}</Code>
               </p>
             </SubSection>
 
+            <SubSection title="Choose your database">
+              <p className="text-gray-600 text-sm mb-3">Config OS supports PostgreSQL (default) and MySQL. Use the matching compose file:</p>
+              <Code language="bash">{`# PostgreSQL (default)
+docker compose up -d
+
+# MySQL
+docker compose -f docker-compose.mysql.yml up -d`}</Code>
+              <p className="text-gray-600 text-sm mt-3">When using MySQL, also set <code className="bg-gray-100 px-1.5 py-0.5 rounded text-sm">DB_ROOT_PASSWORD</code> in your <code className="bg-gray-100 px-1.5 py-0.5 rounded text-sm">.env</code> — see the Configuration section below.</p>
+            </SubSection>
+
             <SubSection title="Verify it's running">
               <Code language="bash">{`curl http://localhost:3001/health
 # {"ok":true}`}</Code>
@@ -159,6 +169,9 @@ LICENSE_KEY=COS-XXXX-XXXX-XXXX-XXXX
 # Generate with: openssl rand -hex 32
 JWT_SECRET=
 ENCRYPTION_KEY=
+
+# MySQL only — not needed for PostgreSQL
+# DB_ROOT_PASSWORD=choose-a-root-password
 
 # Optional — public URL if exposing externally
 API_URL=http://localhost:3001`}</Code>

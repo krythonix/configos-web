@@ -154,15 +154,27 @@ export default function HomePage() {
                 title: "Install the SDK",
                 desc: "Add the SDK to your Node.js app. Preload configs at startup and read secrets at runtime.",
                 code: "npm install @krythonix/configos-sdk",
+                link: "https://www.npmjs.com/package/@krythonix/configos-sdk",
               },
             ].map((item) => (
               <div key={item.step} className="relative">
-                <div className="text-5xl font-black text-gray-100 mb-4">{item.step}</div>
+                <div className="text-5xl font-black text-gray-300 mb-4">{item.step}</div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">{item.title}</h3>
                 <p className="text-gray-500 text-sm leading-relaxed mb-4">{item.desc}</p>
-                <code className="bg-gray-900 text-green-400 text-xs px-3 py-2 rounded-lg block">
-                  {item.code}
-                </code>
+                {item.link ? (
+                  <a
+                    href={item.link}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="bg-gray-900 text-green-400 text-xs px-3 py-2 rounded-lg block hover:bg-gray-800 transition-colors"
+                  >
+                    <code>{item.code}</code>
+                  </a>
+                ) : (
+                  <code className="bg-gray-900 text-green-400 text-xs px-3 py-2 rounded-lg block">
+                    {item.code}
+                  </code>
+                )}
               </div>
             ))}
           </div>

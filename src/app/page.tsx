@@ -31,12 +31,12 @@ export default function HomePage() {
             <Link href="/login" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
               Sign in
             </Link>
-            <Link
-              href="/signup"
+            <a
+              href="https://zool.in/contact"
               className="bg-indigo-600 text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors"
             >
-              Get started free
-            </Link>
+              Contact us
+            </a>
           </div>
         </div>
       </nav>
@@ -59,12 +59,12 @@ export default function HomePage() {
             Config OS gives engineering teams a single place to manage configs and secrets across workspaces, projects, and environments — with built-in audit trails, invites, and secure runtime delivery.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Link
-              href="/signup"
+            <a
+              href="https://zool.in/contact"
               className="bg-indigo-600 text-white font-semibold px-8 py-3.5 rounded-xl hover:bg-indigo-700 transition-colors text-sm"
             >
-              Start for free
-            </Link>
+              Contact us
+            </a>
             <a
               href="#how-it-works"
               className="border border-gray-200 text-gray-700 font-semibold px-8 py-3.5 rounded-xl hover:bg-gray-50 transition-colors text-sm"
@@ -72,7 +72,6 @@ export default function HomePage() {
               See how it works →
             </a>
           </div>
-          <p className="text-xs text-gray-400 mt-4">Self-hosted. No credit card required.</p>
         </div>
       </section>
 
@@ -349,12 +348,12 @@ export default function HomePage() {
           <h2 className="text-3xl font-bold text-gray-900 mb-4">Ready to clean up your configs?</h2>
           <p className="text-gray-500 mb-8">Deploy in minutes. Your team will thank you.</p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Link
-              href="/signup"
+            <a
+              href="https://zool.in/contact"
               className="bg-indigo-600 text-white font-semibold px-8 py-3.5 rounded-xl hover:bg-indigo-700 transition-colors text-sm"
             >
-              Start for free
-            </Link>
+              Contact us
+            </a>
             <a
               href="https://zool.in/contact"
               className="border border-gray-200 text-gray-700 font-semibold px-8 py-3.5 rounded-xl hover:bg-gray-50 transition-colors text-sm"
@@ -372,7 +371,7 @@ export default function HomePage() {
           <div className="flex items-center gap-6 text-sm text-gray-400">
             <a href="https://zool.in/contact" className="hover:text-gray-600">Contact</a>
           </div>
-          <p className="text-sm text-gray-400">© 2026 Config OS</p>
+          <p className="text-sm text-gray-400">© 2026 Zool</p>
         </div>
       </footer>
     </div>

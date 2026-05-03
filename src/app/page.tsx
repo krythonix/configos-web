@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 const Logo = () => (
   <div className="flex items-center gap-2.5">
     <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center shrink-0">
@@ -26,17 +24,7 @@ export default function HomePage() {
             <a href="#how-it-works" className="hover:text-gray-900 transition-colors">How it works</a>
             <a href="#features" className="hover:text-gray-900 transition-colors">Features</a>
             <a href="#pricing" className="hover:text-gray-900 transition-colors">Pricing</a>
-          </div>
-          <div className="flex items-center gap-3">
-            <Link href="/login" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
-              Sign in
-            </Link>
-            <a
-              href="https://zool.in/contact"
-              className="bg-indigo-600 text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors"
-            >
-              Contact us
-            </a>
+            <a href="https://zool.in/contact" className="hover:text-gray-900 transition-colors">Contact us</a>
           </div>
         </div>
       </nav>
@@ -95,7 +83,7 @@ export default function HomePage() {
                 <span className="text-violet-400">import</span>
                 <span className="text-gray-300"> {"{ createClient }"} </span>
                 <span className="text-violet-400">from</span>
-                <span className="text-green-400"> {"'@config-os/sdk'"}</span>
+                <span className="text-green-400"> {"'@krythonix/configos-sdk'"}</span>
                 <span className="text-gray-300">;</span>
               </div>
               <div className="mt-3">
@@ -165,7 +153,7 @@ export default function HomePage() {
                 step: "03",
                 title: "Install the SDK",
                 desc: "Add the SDK to your Node.js app. Preload configs at startup and read secrets at runtime.",
-                code: "npm install @config-os/sdk",
+                code: "npm install @krythonix/configos-sdk",
               },
             ].map((item) => (
               <div key={item.step} className="relative">
@@ -251,13 +239,13 @@ export default function HomePage() {
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold text-gray-900 mb-3">Simple, transparent pricing</h2>
-            <p className="text-gray-500">Annual license. Runs on your infrastructure.</p>
+            <p className="text-gray-500">Affordable annual pricing. Runs on your infrastructure.</p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {[
               {
                 name: "Starter",
-                price: "₹50,000",
+                price: "₹24,000",
                 period: "/year",
                 desc: "For small teams getting started",
                 features: [
@@ -269,12 +257,12 @@ export default function HomePage() {
                   "Node.js SDK",
                   "Email support",
                 ],
-                cta: "Get started",
+                cta: "Contact us",
                 highlight: false,
               },
               {
                 name: "Standard",
-                price: "₹1,00,000",
+                price: "₹60,000",
                 period: "/year",
                 desc: "For growing engineering teams",
                 features: [
@@ -286,7 +274,7 @@ export default function HomePage() {
                   "Node.js SDK",
                   "Priority support",
                 ],
-                cta: "Get started",
+                cta: "Contact us",
                 highlight: true,
               },
               {
@@ -354,12 +342,6 @@ export default function HomePage() {
             >
               Contact us
             </a>
-            <a
-              href="https://zool.in/contact"
-              className="border border-gray-200 text-gray-700 font-semibold px-8 py-3.5 rounded-xl hover:bg-gray-50 transition-colors text-sm"
-            >
-              Contact us
-            </a>
           </div>
         </div>
       </section>
@@ -368,9 +350,6 @@ export default function HomePage() {
       <footer className="border-t border-gray-100 py-8 px-6">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
           <Logo />
-          <div className="flex items-center gap-6 text-sm text-gray-400">
-            <a href="https://zool.in/contact" className="hover:text-gray-600">Contact</a>
-          </div>
           <p className="text-sm text-gray-400">© 2026 Zool</p>
         </div>
       </footer>

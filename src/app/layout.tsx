@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Config OS — Centralized Config & Secrets Management",
-  description: "Self-hosted configuration and secrets management for engineering teams. Replace .env files with a secure, centralized dashboard.",
+  title: "Config OS — Workspace-First Config & Secrets",
+  description: "Self-hosted configuration and secrets management for engineering teams with workspace access control, invite flows, and secure runtime delivery.",
   openGraph: {
     title: "Config OS",
-    description: "Stop storing secrets in your codebase.",
+    description: "Self-hosted config and secrets with workspace-first access control.",
     url: "https://configos.dev",
     siteName: "Config OS",
   },

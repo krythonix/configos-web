@@ -41,9 +41,10 @@ const navItems = [
   { id: "overview", label: "Overview" },
   { id: "installation", label: "Installation" },
   { id: "configuration", label: "Configuration" },
-  { id: "dashboard", label: "Dashboard" },
+  { id: "workspaces", label: "Workspaces & Invites" },
   { id: "sdk", label: "Node.js SDK" },
   { id: "api", label: "API Reference" },
+  { id: "operations", label: "Operations" },
   { id: "environments", label: "Environments" },
   { id: "secrets", label: "Secrets" },
   { id: "tokens", label: "API Tokens" },
@@ -104,11 +105,11 @@ export default function DocsPage() {
           {/* Overview */}
           <Section id="overview" title="Overview">
             <p className="text-gray-600 leading-relaxed mb-4">
-              Config OS is a self-hosted configuration and secrets management platform. It replaces scattered <code className="bg-gray-100 px-1.5 py-0.5 rounded text-sm">.env</code> files with a centralized dashboard, encrypted secret storage, and a lightweight SDK that fetches configs at runtime.
+              Config OS is a self-hosted configuration and secrets management platform built around workspaces and projects. It replaces scattered <code className="bg-gray-100 px-1.5 py-0.5 rounded text-sm">.env</code> files with a centralized dashboard, encrypted secret storage, invite workflows, and a lightweight SDK that fetches configs at runtime.
             </p>
             <div className="bg-indigo-50 border border-indigo-100 rounded-xl p-5">
               <p className="text-sm font-semibold text-indigo-800 mb-2">Core principle</p>
-              <p className="text-sm text-indigo-700">No secrets or config values ever live in your codebase. The only thing in your code is a <strong>Config OS API token</strong> — not the secrets themselves.</p>
+              <p className="text-sm text-indigo-700">No secrets or config values ever live in your codebase. Keep only a <strong>Config OS API token</strong> in your runtime environment, and fetch everything else securely.</p>
             </div>
           </Section>
 
@@ -125,36 +126,37 @@ export default function DocsPage() {
             </SubSection>
 
             <SubSection title="Quick install">
-              <p className="text-gray-600 text-sm mb-3">Download the docker-compose file and run it on your server:</p>
-              <Code language="bash">{`# Download the compose file
-curl -O https://raw.githubusercontent.com/vikaszool/configos/main/docker-compose.yml
-curl -O https://raw.githubusercontent.com/vikaszool/configos/main/docker-compose.env.example
+              <p className="text-gray-600 text-sm mb-3">Clone the repository, copy the deployment environment file, and run the installer:</p>
+              <Code language="bash">{`git clone <your-private-repo-url> config-os
+cd config-os
 
-# Set up environment
-cp docker-compose.env.example .env
+cp deploy/.env.example .env
+# edit .env values (see Configuration section)
 
-# Edit .env with your values (see Configuration section below)
-nano .env
+# PostgreSQL (default)
+bash deploy/install.sh
 
-# Start Config OS
-docker compose up -d`}</Code>
+# MySQL variant
+bash deploy/install.sh --mysql`}</Code>
               <p className="text-gray-600 text-sm">
-                Config OS will be available at <code className="bg-gray-100 px-1.5 py-0.5 rounded text-sm">http://your-server:3000</code>.
+                After installation, web is available on port <code className="bg-gray-100 px-1.5 py-0.5 rounded text-sm">3000</code> and API health on <code className="bg-gray-100 px-1.5 py-0.5 rounded text-sm">3001</code>.
               </p>
             </SubSection>
 
             <SubSection title="Choose your database">
-              <p className="text-gray-600 text-sm mb-3">Config OS supports PostgreSQL (default) and MySQL. Use the matching compose file:</p>
+              <p className="text-gray-600 text-sm mb-3">Config OS supports PostgreSQL (default) and MySQL:</p>
               <Code language="bash">{`# PostgreSQL (default)
-docker compose up -d
+bash deploy/install.sh
 
 # MySQL
-docker compose -f docker-compose.mysql.yml up -d`}</Code>
-              <p className="text-gray-600 text-sm mt-3">When using MySQL, also set <code className="bg-gray-100 px-1.5 py-0.5 rounded text-sm">DB_ROOT_PASSWORD</code> in your <code className="bg-gray-100 px-1.5 py-0.5 rounded text-sm">.env</code> — see the Configuration section below.</p>
+bash deploy/install.sh --mysql`}</Code>
+              <p className="text-gray-600 text-sm mt-3">When using MySQL, set <code className="bg-gray-100 px-1.5 py-0.5 rounded text-sm">DB_ROOT_PASSWORD</code> in <code className="bg-gray-100 px-1.5 py-0.5 rounded text-sm">.env</code>.</p>
             </SubSection>
 
             <SubSection title="Verify it's running">
-              <Code language="bash">{`curl http://localhost:3001/health
+              <Code language="bash">{`docker compose --env-file .env -f docker-compose.yml ps
+
+curl http://localhost:3001/health
 # {"ok":true}`}</Code>
             </SubSection>
           </Section>
@@ -163,18 +165,24 @@ docker compose -f docker-compose.mysql.yml up -d`}</Code>
           <Section id="configuration" title="Configuration">
             <p className="text-gray-600 text-sm mb-4">Fill in your <code className="bg-gray-100 px-1.5 py-0.5 rounded text-sm">.env</code> file before starting:</p>
             <Code language=".env">{`# Required
-DB_PASSWORD=choose-a-strong-password
 LICENSE_KEY=COS-XXXX-XXXX-XXXX-XXXX
+DB_PASSWORD=choose-a-strong-password
+ADMIN_EMAIL=admin@yourdomain.com
+ADMIN_PASSWORD=change-me-strong-password
+WEB_URL=https://configos.yourdomain.com
 
 # Generate with: openssl rand -hex 32
 JWT_SECRET=
 ENCRYPTION_KEY=
 
-# MySQL only — not needed for PostgreSQL
+# Optional
+ADMIN_WORKSPACE=Main Workspace
+API_URL=/api
+
+# MySQL only
 # DB_ROOT_PASSWORD=choose-a-root-password
 
-# Optional — public URL if exposing externally
-API_URL=http://localhost:3001`}</Code>
+`}</Code>
 
             <SubSection title="Generate secrets">
               <Code language="bash">{`# Generate JWT_SECRET and ENCRYPTION_KEY
@@ -186,20 +194,20 @@ openssl rand -hex 32   # run twice, use each output for one variable`}</Code>
             </div>
           </Section>
 
-          {/* Dashboard */}
-          <Section id="dashboard" title="Dashboard">
+          {/* Workspaces and invites */}
+          <Section id="workspaces" title="Workspaces & Invite Flows">
             <p className="text-gray-600 text-sm leading-relaxed mb-4">
-              Open <code className="bg-gray-100 px-1.5 py-0.5 rounded text-sm">http://your-server:3000</code> in your browser.
+              Open <code className="bg-gray-100 px-1.5 py-0.5 rounded text-sm">http://your-server:3000</code> and sign in with your admin credentials from <code className="bg-gray-100 px-1.5 py-0.5 rounded text-sm">.env</code>.
             </p>
 
             <SubSection title="First-time setup">
               <ol className="list-none space-y-4 text-sm text-gray-600">
                 {[
-                  { n: "1", title: "Create an account", desc: "Click Sign up. Enter your name, email, password, and organization name." },
-                  { n: "2", title: "Create a project", desc: "Click New project. Config OS automatically creates three environments: Development, Staging, Production." },
-                  { n: "3", title: "Add configs", desc: "Select an environment, click Add config, and enter a KEY and value." },
-                  { n: "4", title: "Add secrets", desc: "Switch to the Secrets tab for sensitive values like DB passwords or API keys. All secrets are AES-256 encrypted." },
-                  { n: "5", title: "Create an API token", desc: "Go to API Tokens → New token. Copy the token — it's only shown once." },
+                  { n: "1", title: "Create workspace and project", desc: "Use a workspace as your top-level boundary, then create projects inside it." },
+                  { n: "2", title: "Set environment values", desc: "Each project has isolated development, staging, and production values." },
+                  { n: "3", title: "Invite collaborators", desc: "Invite workspace members and assign project-specific access where needed." },
+                  { n: "4", title: "Manage invite requests", desc: "Contributors can submit invite requests that admins can approve or reject." },
+                  { n: "5", title: "Create API token", desc: "Generate a token scoped to your workspace/project and store it in server env vars." },
                 ].map((step) => (
                   <li key={step.n} className="flex gap-4">
                     <span className="w-6 h-6 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">{step.n}</span>
@@ -226,7 +234,7 @@ const config = createClient({
   apiUrl: process.env.CONFIG_OS_URL!,   // URL of your Config OS API
   token: process.env.CONFIG_OS_TOKEN!,  // API token from the dashboard
   project: "my-app",                    // project slug
-  environment: process.env.NODE_ENV!,   // "development" | "staging" | "production"
+  environment: "production",            // "development" | "staging" | "production"
 });`}</Code>
             </SubSection>
 
@@ -277,15 +285,16 @@ config.invalidate("DB_URL");   // clear one key`}</Code>
 
             {[
               { method: "GET", path: "/sdk/configs?project=slug&env=slug", desc: "Fetch all configs for a project/environment. Used by the SDK." },
-              { method: "GET", path: "/orgs/:org/projects", desc: "List all projects in an organization." },
-              { method: "POST", path: "/orgs/:org/projects", desc: "Create a new project." },
-              { method: "GET", path: "/orgs/:org/projects/:project/envs/:env/configs", desc: "List all configs for an environment." },
-              { method: "POST", path: "/orgs/:org/projects/:project/envs/:env/configs", desc: "Create or update a config key." },
-              { method: "DELETE", path: "/orgs/:org/projects/:project/envs/:env/configs/:key", desc: "Delete a config key." },
-              { method: "GET", path: "/orgs/:org/projects/:project/envs/:env/secrets", desc: "List secrets (values masked)." },
-              { method: "POST", path: "/orgs/:org/projects/:project/envs/:env/secrets", desc: "Create or update a secret." },
-              { method: "GET", path: "/orgs/:org/projects/:project/envs/:env/secrets/:key/reveal", desc: "Reveal a secret value. Admin only." },
-              { method: "GET", path: "/orgs/:org/audit", desc: "List audit log entries." },
+              { method: "GET", path: "/workspaces/:workspaceSlug/projects", desc: "List projects in a workspace." },
+              { method: "POST", path: "/workspaces/:workspaceSlug/projects", desc: "Create a new project." },
+              { method: "GET", path: "/workspaces/:workspaceSlug/projects/:projectSlug/envs/:envSlug/configs", desc: "List configs for an environment." },
+              { method: "POST", path: "/workspaces/:workspaceSlug/projects/:projectSlug/envs/:envSlug/configs", desc: "Create or update a config key." },
+              { method: "DELETE", path: "/workspaces/:workspaceSlug/projects/:projectSlug/envs/:envSlug/configs/:key", desc: "Delete a config key." },
+              { method: "GET", path: "/workspaces/:workspaceSlug/projects/:projectSlug/envs/:envSlug/secrets", desc: "List secrets (values masked)." },
+              { method: "POST", path: "/workspaces/:workspaceSlug/projects/:projectSlug/envs/:envSlug/secrets", desc: "Create or update a secret." },
+              { method: "GET", path: "/workspaces/:workspaceSlug/invitations", desc: "Manage workspace invitation flows." },
+              { method: "GET", path: "/workspaces/:workspaceSlug/audit", desc: "Paginated audit stream for workspace activity." },
+              { method: "GET", path: "/org/settings/email", desc: "Configure and test org-level SMTP settings." },
             ].map((endpoint) => (
               <div key={endpoint.path} className="flex gap-3 py-3 border-b border-gray-50 text-sm">
                 <span className={`shrink-0 font-bold font-mono text-xs px-2 py-1 rounded h-fit ${endpoint.method === "GET" ? "bg-blue-50 text-blue-600" : endpoint.method === "POST" ? "bg-green-50 text-green-600" : "bg-red-50 text-red-600"}`}>
@@ -297,6 +306,24 @@ config.invalidate("DB_URL");   // clear one key`}</Code>
                 </div>
               </div>
             ))}
+          </Section>
+
+          {/* Operations */}
+          <Section id="operations" title="Operations">
+            <p className="text-gray-600 text-sm leading-relaxed mb-4">
+              Config OS ships with operational scripts for installation lifecycle and data protection.
+            </p>
+            <Code language="bash">{`# Upgrade deployment
+bash deploy/upgrade.sh
+
+# PostgreSQL backup
+bash deploy/backup-postgres.sh
+
+# PostgreSQL restore
+bash deploy/restore-postgres.sh backups/configos-YYYYMMDD-HHMMSS.sql`}</Code>
+            <p className="text-gray-600 text-sm">
+              Keep your <code className="bg-gray-100 px-1.5 py-0.5 rounded text-sm">ENCRYPTION_KEY</code> backed up securely. Losing it means encrypted secrets cannot be recovered.
+            </p>
           </Section>
 
           {/* Environments */}
@@ -333,7 +360,7 @@ const stripeKey = await config.require("STRIPE_SECRET_KEY");`}</Code>
           {/* Tokens */}
           <Section id="tokens" title="API Tokens">
             <p className="text-gray-600 text-sm leading-relaxed mb-4">
-              API tokens authenticate the SDK. They are scoped to your organization and optionally to a specific project.
+              API tokens authenticate the SDK. They are scoped to your workspace and can be constrained to a specific project.
             </p>
             <SubSection title="Create a token">
               <ol className="list-none space-y-2 text-sm text-gray-600">
@@ -359,9 +386,10 @@ export CONFIG_OS_TOKEN=cos_xxxxxxxxxxxxxxxx`}</Code>
                 </thead>
                 <tbody className="divide-y divide-gray-100">
                   {[
-                    { role: "Admin", perms: "Everything — create/delete projects, manage API tokens, reveal secrets, manage team members" },
-                    { role: "Editor", perms: "Create and update configs and secrets. Cannot reveal secrets or manage tokens." },
-                    { role: "Viewer", perms: "Read-only access to configs. Cannot view secrets or make any changes." },
+                    { role: "Workspace Admin", perms: "Manage projects, members, invites, tokens, configs, and secret reveal permissions." },
+                    { role: "Contributor", perms: "Create and update configs/secrets, and participate in scoped project collaboration." },
+                    { role: "Viewer", perms: "Read-only access to non-sensitive configuration metadata." },
+                    { role: "Org Admin", perms: "Cross-workspace administration, org-level settings, and organization-wide governance." },
                   ].map((r) => (
                     <tr key={r.role} className="hover:bg-gray-50">
                       <td className="px-5 py-3 font-medium text-gray-800">{r.role}</td>

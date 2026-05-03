@@ -47,7 +47,7 @@ export default function HomePage() {
         <div className="max-w-4xl mx-auto text-center">
           <div className="inline-flex items-center gap-2 bg-indigo-50 text-indigo-600 text-xs font-semibold px-3 py-1.5 rounded-full mb-6">
             <span className="w-1.5 h-1.5 bg-indigo-500 rounded-full" />
-            Self-hosted · Your infrastructure · Your data
+            Self-hosted · Workspace-first access control
           </div>
           <h1 className="text-5xl md:text-6xl font-bold text-gray-900 leading-tight mb-6">
             Stop storing secrets
@@ -57,7 +57,7 @@ export default function HomePage() {
             </span>
           </h1>
           <p className="text-xl text-gray-500 mb-10 max-w-2xl mx-auto leading-relaxed">
-            Config OS gives your team a single, secure place to manage configs and secrets across all environments — without ever touching a <code className="bg-gray-100 px-1.5 py-0.5 rounded text-gray-700 text-lg">.env</code> file again.
+            Config OS gives engineering teams a single place to manage configs and secrets across workspaces, projects, and environments — with built-in audit trails, invites, and secure runtime delivery.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link
@@ -153,20 +153,20 @@ export default function HomePage() {
             {[
               {
                 step: "01",
-                title: "Deploy with Docker",
-                desc: "Run one command on your server. Choose PostgreSQL or MySQL — Config OS bundles the database, no external setup needed.",
-                code: "docker compose up -d",
+                title: "Install on your server",
+                desc: "Use the deployment bundle and one install command. Choose PostgreSQL by default or switch to MySQL when needed.",
+                code: "bash deploy/install.sh",
               },
               {
                 step: "02",
-                title: "Add your configs",
-                desc: "Open the dashboard, create a project, and add your config keys and secrets per environment.",
-                code: "dev · staging · production",
+                title: "Create workspace + projects",
+                desc: "Set up projects and environments, then invite teammates with workspace and project-level roles.",
+                code: "workspaces · members · invitations",
               },
               {
                 step: "03",
                 title: "Install the SDK",
-                desc: "Add the SDK to your Node.js app. One call at startup loads all configs. No .env files needed.",
+                desc: "Add the SDK to your Node.js app. Preload configs at startup and read secrets at runtime.",
                 code: "npm install @config-os/sdk",
               },
             ].map((item) => (
@@ -204,13 +204,13 @@ export default function HomePage() {
               },
               {
                 icon: "📋",
-                title: "Audit logs",
-                desc: "Every change is logged — who changed what, when, and what it was before.",
+                title: "Workspace audit trails",
+                desc: "Every change, reveal, and permission event is recorded with actor and timestamp context.",
               },
               {
                 icon: "👥",
-                title: "Role-based access",
-                desc: "Admin, Editor, and Viewer roles. New team members get access instantly.",
+                title: "Workspace + project roles",
+                desc: "Control access with scoped roles across workspaces and individual projects.",
               },
               {
                 icon: "⚡",
@@ -223,19 +223,19 @@ export default function HomePage() {
                 desc: "Runs entirely on your infrastructure. Your secrets never leave your network.",
               },
               {
-                icon: "🔑",
-                title: "API tokens",
-                desc: "Issue tokens scoped to projects. Rotate them without touching your codebase.",
+                icon: "✉️",
+                title: "Invitation workflows",
+                desc: "Invite workspace members, manage project membership, and handle invite requests cleanly.",
               },
               {
-                icon: "🗄️",
-                title: "Version history",
-                desc: "Every config change is versioned. Roll back to any previous value in one click.",
+                icon: "🛠️",
+                title: "Operations-ready",
+                desc: "Install, upgrade, backup, and restore scripts are included for predictable production operations.",
               },
               {
                 icon: "🐳",
-                title: "Docker native",
-                desc: "Ships as a Docker image with PostgreSQL and MySQL support. Fits into any existing infrastructure in minutes.",
+                title: "Postgres or MySQL",
+                desc: "Deploy with the default PostgreSQL setup or use the MySQL installation path when required.",
               },
             ].map((f) => (
               <div key={f.title} className="border border-gray-100 rounded-xl p-6 hover:border-indigo-100 hover:shadow-sm transition-all">
@@ -262,7 +262,15 @@ export default function HomePage() {
                 price: "₹50,000",
                 period: "/year",
                 desc: "For small teams getting started",
-                features: ["Up to 10 users", "Unlimited projects", "All environments", "Audit logs", "Node.js SDK", "Email support"],
+                features: [
+                  "Up to 10 users",
+                  "1 workspace",
+                  "Unlimited projects",
+                  "Dev / staging / production environments",
+                  "Workspace audit trails",
+                  "Node.js SDK",
+                  "Email support",
+                ],
                 cta: "Get started",
                 highlight: false,
               },
@@ -271,7 +279,15 @@ export default function HomePage() {
                 price: "₹1,00,000",
                 period: "/year",
                 desc: "For growing engineering teams",
-                features: ["Up to 50 users", "Unlimited projects", "All environments", "Full audit logs", "Node.js SDK", "Priority support", "Version history"],
+                features: [
+                  "Up to 50 users",
+                  "Multiple workspaces",
+                  "Unlimited projects",
+                  "Workspace + project role controls",
+                  "Invite and invite-request workflows",
+                  "Node.js SDK",
+                  "Priority support",
+                ],
                 cta: "Get started",
                 highlight: true,
               },
@@ -280,7 +296,16 @@ export default function HomePage() {
                 price: "Custom",
                 period: "",
                 desc: "For large teams with compliance needs",
-                features: ["Unlimited users", "Air-gapped install", "SSO / SAML", "SLA guarantee", "Dedicated support", "Custom contract"],
+                features: [
+                  "Unlimited users",
+                  "Unlimited workspaces",
+                  "Org-admin governance workflows",
+                  "Air-gapped install",
+                  "SSO / SAML",
+                  "SLA guarantee",
+                  "Dedicated support",
+                  "Custom contract",
+                ],
                 cta: "Contact us",
                 highlight: false,
               },

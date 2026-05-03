@@ -288,7 +288,6 @@ export default function HomePage() {
                   "Org-admin governance workflows",
                   "Air-gapped install",
                   "SSO / SAML",
-                  "SLA guarantee",
                   "Dedicated support",
                   "Custom contract",
                 ],
